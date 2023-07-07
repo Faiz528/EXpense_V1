@@ -164,7 +164,7 @@ window.document.addEventListener("DOMContentLoaded", async () => {
           // "itemsPerPage" : itemsPerPage || 5
         }
       });
-      console.log(response.data.rows);
+      console.log(response.data);
     clearList()
 
       var total = 0;
@@ -172,7 +172,18 @@ window.document.addEventListener("DOMContentLoaded", async () => {
         onscreen(response.data.rows[i]);
         total = total + parseInt(response.data.rows[i].Expenses);
       }
-
+      const sum =  axios.get(`http://localhost:3000/totals/${total}`,{headers:{'Authorisation':tokens,'Total':total}})
+      if (prime == 'true') {
+          razorpayBtn.style.display = 'none';
+          document.getElementById('message').innerText='PREMIUM'
+      }
+      else{
+          leader.style.display='none'
+          dailybtn.style.display='none'
+          weeklybtn.style.display='none'
+          monthlybtn.style.display='none'
+      }
+  
       totalItems = response.data.count; // Update the totalItems count
       updateButtons(); // Update the visibility of Next/Previous buttons
     };
