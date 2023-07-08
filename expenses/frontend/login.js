@@ -1,5 +1,6 @@
 var name=document.getElementById('name')
-//var error = document.getElementById('error')
+let logins= document.getElementById('logins')
+logins.addEventListener('submit',save)
 async function save(event)
 {
     event.preventDefault()
