@@ -16,7 +16,7 @@ async function save(event)
       }
     //console.log(object)
     try {
-        const response = await axios.post('http://localhost:3000/login', object);
+        const response = await axios.post('http://3.108.220.147:3000/login', object);
         console.log(response);
         const tokens = response.data.token
         const premium = response.data.premium
