@@ -40,10 +40,10 @@ monthlybtn.addEventListener('click', () => {
 //listExpensesByTimeframe('all');*/
 download.addEventListener('click',async()=>{
     try{
-    const res = await axios.get('http://localhost:3000/user/download',{headers:{'Authorisation':tokens}})
+    const res = await axios.get('http://3.108.220.147:3000/user/download',{headers:{'Authorisation':tokens}})
     if(res.status=== 200)
     {
-        const file = await axios.get('http://localhost:3000/user/downloadFile',{headers:{'Authorisation':tokens}})
+        const file = await axios.get('http://3.108.220.147:3000/user/downloadFile',{headers:{'Authorisation':tokens}})
         console.log(file)
         var a = document.createElement('a')
         a.href = res.data.fileUrl
@@ -58,7 +58,7 @@ download.addEventListener('click',async()=>{
 downloadfile.addEventListener('click',async()=>{
     try{
    
-        const file = await axios.get('http://localhost:3000/user/downloadFile',{headers:{'Authorisation':tokens}})
+        const file = await axios.get('http://3.108.220.147:3000/user/downloadFile',{headers:{'Authorisation':tokens}})
         for(var i =0; i<file.data.length;i++){
             const dataFile = file.data[i].file
             const child =`<li><a>${dataFile} </li>`
@@ -87,7 +87,7 @@ async function save(event){
     }
 
     try{
-        const response = await axios.post(`http://localhost:3000/add`,my,{headers:{'Authorisation':tokens}})
+        const response = await axios.post(`http://3.108.220.147:3000/add`,my,{headers:{'Authorisation':tokens}})
         onscreen(response.data)
         expense1.value=""
         purpose1.value=''
@@ -104,7 +104,7 @@ leader.addEventListener("click",async(e)=>{
       h2.innerText = 'LEADERBOAD';
     try{
       
-        const leaderboard = await axios.get('http://localhost:3000/leaderlist')
+        const leaderboard = await axios.get('http://3.108.220.147:3000/leaderlist')
         for(var i =0; i<leaderboard.data.length;i++){
             const user = leaderboard.data[i].Username
             const total = leaderboard.data[i].Total
@@ -119,12 +119,12 @@ leader.addEventListener("click",async(e)=>{
 
 razorpayBtn.addEventListener("click", async(e) =>{
     try{
-        const response = await axios.get('http://localhost:3000/premium', { headers: {"Authorisation" : tokens }})
+        const response = await axios.get('http://3.108.220.147:3000/premium', { headers: {"Authorisation" : tokens }})
         var options = {
             "key": response.data.key_id,
             "order_id": response.data.order.id,
             "handler": async function (response){
-                const a =await axios.post("http://localhost:3000/updatetransactionstatus",{
+                const a =await axios.post("http://3.108.220.147:3000/updatetransactionstatus",{
                     order_id: options.order_id,
                     payment_id: response.razorpay_payment_id
                 }, { headers: {"Authorisation" : tokens }})
@@ -144,7 +144,7 @@ razorpayBtn.addEventListener("click", async(e) =>{
     rzp1.on('payment.failed', async function (response){
         console.log(response);
         alert("Transaction Failed")
-        await axios.post("http://localhost:4000/purchase/transactionfailstatus", response.error.metadata ,{ headers: {"Authorisation" : tokens }})
+        await axios.post("http://3.108.220.147:4000/purchase/transactionfailstatus", response.error.metadata ,{ headers: {"Authorisation" : tokens }})
     });
 })
 
@@ -158,7 +158,7 @@ window.document.addEventListener("DOMContentLoaded", async () => {
     const fetchExpenses = async () => {
       // const tokens = localStorage.getItem('token')
       const prime = localStorage.getItem('prime');
-      const response = await axios.get(`http://localhost:3000/user/expense/page/?page=${page}&limit=${limit}`, {
+      const response = await axios.get(`http://3.108.220.147:3000/user/expense/page/?page=${page}&limit=${limit}`, {
         headers: {
           "Authorisation": tokens,
           // "itemsPerPage" : itemsPerPage || 5
@@ -172,7 +172,7 @@ window.document.addEventListener("DOMContentLoaded", async () => {
         onscreen(response.data.rows[i]);
         total = total + parseInt(response.data.rows[i].Expenses);
       }
-      const sum =  axios.get(`http://localhost:3000/totals/${total}`,{headers:{'Authorisation':tokens,'Total':total}})
+      const sum =  axios.get(`http://3.108.220.147:3000/totals/${total}`,{headers:{'Authorisation':tokens,'Total':total}})
       if (prime == 'true') {
           razorpayBtn.style.display = 'none';
           document.getElementById('message').innerText='PREMIUM'
@@ -270,7 +270,7 @@ async function onscreen(user){
 
 async function remove(userId){
     try{
-        await axios.delete(`http://localhost:3000/delete/${userId}`)
+        await axios.delete(`http://3.108.220.147:3000/delete/${userId}`)
         userList.remove(userId)
         window.location.reload()
     }
@@ -282,7 +282,7 @@ async function remove(userId){
 async function edit(userId){
     try{
         userList.remove(userId)
-        const response =await axios.get(`http://localhost:3000/edit/${userId}`)
+        const response =await axios.get(`http:3.108.220.147:3000/edit/${userId}`)
         expense1.value= response.data.Expenses
         purpose1.value= response.data.Purpose
         category1.value= response.data.Category
@@ -293,7 +293,7 @@ async function edit(userId){
                 purpose:purpose1.value,
                 category:category1.value
             }
-            const result = await axios.post(`http://localhost:3000/edits/${userId}`,updated)
+            const result = await axios.post(`http://3.108.220.147:3000/edits/${userId}`,updated)
             window.location.reload()
         })
     }
