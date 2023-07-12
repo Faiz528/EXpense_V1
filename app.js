@@ -21,6 +21,9 @@ const accessLog = fs.createWriteStream(
 )
 app.use(Parser.json({extended:false}))
 app.use(cors())
+app.use(cors({
+  origin: '*'
+}));
 app.use(express.static('public'));
 app.use(helmet())
 app.use(compressions())
