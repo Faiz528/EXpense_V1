@@ -12,9 +12,9 @@ const Expenses = require('./model/expense')
 const Order = require('./model/order')
 const forgotPassword = require('./model/forgotpassword')
 const Downloaded = require('./model/download')
-const helmet = require('helmet')
+//const helmet = require('helmet')
 const compressions = require('compression')
-const morgan = require('morgan')
+//const morgan = require('morgan')
 
 const accessLog = fs.createWriteStream(
   path.join(__dirname,'access.log'),{flags:'a'}
