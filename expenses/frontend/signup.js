@@ -1,5 +1,7 @@
 var name=document.getElementById('name')
 var errors = document.getElementById('errors')
+var sign = document.getElementById('sign')
+sign.addEventListener('submit',save)
 async function save(event)
 {
     event.preventDefault()
