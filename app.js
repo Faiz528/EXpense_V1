@@ -25,11 +25,11 @@ app.use(cors({
   origin: '*'
 }));
 app.use(express.static('public'));
-app.use(helmet())
+/*app.use(helmet())
 app.use(compressions())
-app.use(morgan('combined',{stream:accessLog}))
+/*app.use(morgan('combined',{stream:accessLog}))
 
-app.use(helmet.contentSecurityPolicy({
+/*app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
     scriptSrc: ["'self'", "https://checkout.razorpay.com/v1/checkout.js","https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js","https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js","https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js",]
@@ -38,7 +38,7 @@ app.use(helmet.contentSecurityPolicy({
     connectSrc:["'self'","https://lumberjack-cx.razorpay.com/beacon/v1/batch"]
     // Add other CSP directives as needed
   }
-}));
+}));*/
 
 const Signup = require('./expenses/route/sign')
 app.use(Signup)
